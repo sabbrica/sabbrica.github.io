@@ -8,7 +8,8 @@
     html, body {
       height: 100%;
       margin: 0;
-      background-image: url('safa.jpeg'); /* 👈 your image file */
+      /* 👇 make sure the image is in the same folder as this file */
+      background-image: url('./safa.jpeg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -23,12 +24,15 @@
     /* Dark transparent overlay */
     .overlay {
       position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4); /* adjust 0.4 → lighter/darker effect */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
 
-    /* Text */
+    /* Text styling */
     .title {
       z-index: 2;
       font-weight: 900;
@@ -48,4 +52,3 @@
   <h1 class="title">SABA SABAR!</h1>
 </body>
 </html>
-
