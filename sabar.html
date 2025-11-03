@@ -1,54 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SABA SABAR!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sabar saba!</title>
   <style>
     html, body {
       height: 100%;
       margin: 0;
-      /* 👇 make sure the image is in the same folder as this file */
-      background-image: url('./safa.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      padding: 0;
+      background-image: url('safa.png.jpeg'); /* 👈 replace with your image */
+      background-size: cover;        /* make image cover the screen */
+      background-position: center;   /* center the image */
+      background-repeat: no-repeat;  /* prevent repetition */
       display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
+      justify-content: center;       /* center horizontally */
+      align-items: center;           /* center vertically */
     }
 
-    /* Dark transparent overlay */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 1;
-    }
-
-    /* Text styling */
-    .title {
-      z-index: 2;
-      font-weight: 900;
-      letter-spacing: 0.15em;
-      font-size: min(18vw, 140px);
-      color: #ffffff;
-      text-transform: uppercase;
-      text-shadow: 0 6px 24px rgba(0, 0, 0, 0.8);
+    h1 {
+      color: white;
+      font-size: 64px;
+      font-family: 'Arial', sans-serif;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); /* better visibility */
       margin: 0;
-      line-height: 1;
-      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <h1 class="title">SABA SABAR!</h1>
+  <h1>SABAR SABA</h1>
 </body>
 </html>
