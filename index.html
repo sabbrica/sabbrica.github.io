@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Surprise</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Optional Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <!-- Your CSS file -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- removed the "Made with ❤️ by [YOUR NAME]" line -->
+
+  <!-- PAGE 1 -->
+  <section id="page1" class="page active">
+    <h1 class="birthday-heading">🎉 Happy Birthday, Raffath Unnisa! 🎂</h1>
+    <p class="birthday-sub">
+      You are the reason this day is so special. I’m so lucky to have you.
+    </p>
+    <button class="btn" onclick="goToPage(2)">Click to Start the Surprise ✨</button>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section id="page2" class="page">
+    <h2>🎁 A Mystery Virtual Gift Awaits...</h2>
+    <p class="small">Tap the magical box to see what’s inside!</p>
+    <div class="gift-box" id="giftBox" onclick="openGift()">
+      <div class="gift-ribbon-vertical"></div>
+      <div class="gift-ribbon-horizontal"></div>
+      <div class="gift-glow"></div>
+    </div>
+
+    <!-- 🌸 Bouquet appears when box opens -->
+    <div id="bouquet" class="bouquet">
+      <div class="bouquet-wrap"></div>
+      <div class="bouquet-stem stem1"></div>
+      <div class="bouquet-stem stem2"></div>
+      <div class="bouquet-stem stem3"></div>
+
+      <div class="bouquet-flower f1"></div>
+      <div class="bouquet-flower f2"></div>
+      <div class="bouquet-flower f3"></div>
+      <div class="bouquet-flower f4"></div>
+    </div>
+    <p id="bouquetText" class="bouquet-text">
+      A bouquet just for you, Raffath Unnisa 🌸
+    </p>
+
+    <div id="giftMessage" class="hidden-message">
+      “This gift is my heart, always yours 💖”
+    </div>
+    <button class="btn" id="nextFromGift" style="display:none;" onclick="goToPage(3)">Next Surprise →</button>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section id="page3" class="page">
+    <h2>🎮 A Little Game Just For You</h2>
+    <p>Click on the colorful floating balloons to earn hearts!</p>
+    <p>Score: <span id="score">0</span> / 10</p>
+    <div id="gameArea"></div>
+    <div id="winMessage" class="win-message">
+      “Yay, you did it! Just like you win everyone’s hearts every day 💕”
+    </div>
+    <button class="btn" id="nextFromGame" style="display:none;" onclick="goToPage(4)">Continue the Magic →</button>
+  </section>
+
+  <!-- PAGE 4 -->
+  <section id="page4" class="page">
+    <h2>Blessings & Wishes for Your Future ✨</h2>
+    <div class="blessings-container">
+      <p class="blessing" style="animation-delay:0.2s">
+        May your heart always stay kind, gentle and full of love, lighting up the lives of everyone around you.
+      </p>
+      <p class="blessing" style="animation-delay:0.5s">
+        I pray that your studies and career lead you to incredible opportunities, success and confidence in every step.
+      </p>
+      <p class="blessing" style="animation-delay:0.8s">
+        May you always stay healthy, strong and full of energy, with a smile that never fades from your face.
+      </p>
+      <p class="blessing" style="animation-delay:1.1s">
+        I wish that every dream you hold in your heart slowly turns into a beautiful reality, one by one.
+      </p>
+      <p class="blessing" style="animation-delay:1.4s">
+        May you never feel alone in this world, always surrounded by love, care and people who truly value you.
+      </p>
+      <p class="blessing" style="animation-delay:1.7s">
+        May your journey of love and marriage one day be filled with loyalty, peace and a partner who cherishes you the way you deserve.
+      </p>
+      <p class="blessing" style="animation-delay:2.0s">
+        And no matter what happens, remember you are stronger than you think and more special than you know.
+      </p>
+    </div>
+    <button class="btn" onclick="goToPage(5)">Let’s Cut the Cake →</button>
+  </section>
+
+  <!-- PAGE 5 -->
+  <section id="page5" class="page">
+    <h2>🎂 Time to Blow the Candles & Cut the Cake</h2>
+    <div class="cake-container" id="cakeContainer">
+      <div class="cake-base"></div>
+      <div class="cake-layer"></div>
+      <div class="cake-icing"></div>
+      <div class="candle-row" id="candleRow">
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+        <div class="candle">
+          <div class="flame"></div>
+        </div>
+      </div>
+      <div class="cake-cut-line"></div>
+    </div>
+
+    <div class="cake-buttons">
+      <button class="btn" onclick="blowCandles()">Blow Candles 🎈</button>
+      <button class="btn" onclick="cutCake()">Cut the Cake 🍰</button>
+    </div>
+
+    <div id="cakeMessage" class="celebration-text">
+      Happy Birthday Raffath Unnisa! 🌸🎉<br>
+      Every slice of this cake carries my love for you 💗
+    </div>
+
+    <button class="btn" id="nextFromCake" style="display:none;" onclick="goToPage(6)">Last Surprise →</button>
+  </section>
+
+  <!-- PAGE 6 -->
+  <section id="page6" class="page">
+    <div class="final-bg"></div>
+    <h2>Final Message 💌</h2>
+    <p class="final-main">
+      Have a nice day and enjoy your day.
+    </p>
+    <p class="final-sub">
+      You are special, Raffath Unnisa. Never forget that.
+    </p>
+    <p class="signature">
+      With all my love,
+    </p>
+    <button class="btn" onclick="goToPage(1); resetAll();">Replay Surprises 🔁</button>
+  </section>
+
+  <!-- Optional: celebration sound -->
+  <!--
+  <audio id="celebrationSound">
+    <source src="celebration.mp3" type="audio/mpeg">
+  </audio>
+  -->
+
+  <!-- Your JS file -->
+  <script src="script.js"></script>
+</body>
+</html>
