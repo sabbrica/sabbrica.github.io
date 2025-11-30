@@ -10,11 +10,9 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- removed the "Made with ❤️ by [YOUR NAME]" line -->
-
   <!-- PAGE 1 -->
   <section id="page1" class="page active">
-    <h1 class="birthday-heading">🎉 Happy Birthday, Raffath Unnisa! 🎂</h1>
+    <h1 class="birthday-heading">🎉 Happy Birthday, Rafath Unnisa! 🎂</h1>
     <p class="birthday-sub">
       You are the reason this day is so special. I’m so lucky to have you.
     </p>
@@ -44,7 +42,7 @@
       <div class="bouquet-flower f4"></div>
     </div>
     <p id="bouquetText" class="bouquet-text">
-      A bouquet just for you, Raffath Unnisa 🌸
+      A bouquet just for you, Rafath Unnisa 🌸
     </p>
 
     <div id="giftMessage" class="hidden-message">
@@ -53,7 +51,7 @@
     <button class="btn" id="nextFromGift" style="display:none;" onclick="goToPage(3)">Next Surprise →</button>
   </section>
 
-  <!-- PAGE 3 -->
+  <!-- PAGE 3 – Game 1 -->
   <section id="page3" class="page">
     <h2>🎮 A Little Game Just For You</h2>
     <p>Click on the colorful floating balloons to earn hearts!</p>
@@ -62,11 +60,32 @@
     <div id="winMessage" class="win-message">
       “Yay, you did it! Just like you win everyone’s hearts every day 💕”
     </div>
-    <button class="btn" id="nextFromGame" style="display:none;" onclick="goToPage(4)">Continue the Magic →</button>
+    <button class="btn" id="nextFromGame" style="display:none;" onclick="goToPage(4)">Play One More Game →</button>
   </section>
 
-  <!-- PAGE 4 -->
+  <!-- PAGE 4 – Game 2: Catch the Hearts -->
   <section id="page4" class="page">
+    <h2>💗 Catch the Hearts</h2>
+    <p>Move the basket and catch the falling hearts for Rafath Unnisa!</p>
+    <p>Hearts caught: <span id="heartsScore">0</span> / 8</p>
+
+    <div id="catchArea">
+      <div id="basket"></div>
+    </div>
+
+    <div class="catch-controls">
+      <button class="btn small-btn" onclick="moveBasket(-1)">⟵ Move Left</button>
+      <button class="btn small-btn" onclick="moveBasket(1)">Move Right ⟶</button>
+    </div>
+
+    <div id="catchWinMessage" class="win-message">
+      “Perfect catch! Just like you catch all the love around you 💗”
+    </div>
+    <button class="btn" id="nextFromCatch" style="display:none;" onclick="goToPage(5)">Continue the Magic →</button>
+  </section>
+
+  <!-- PAGE 5 – Blessings -->
+  <section id="page5" class="page">
     <h2>Blessings & Wishes for Your Future ✨</h2>
     <div class="blessings-container">
       <p class="blessing" style="animation-delay:0.2s">
@@ -91,31 +110,38 @@
         And no matter what happens, remember you are stronger than you think and more special than you know.
       </p>
     </div>
-    <button class="btn" onclick="goToPage(5)">Let’s Cut the Cake →</button>
+    <button class="btn" onclick="goToPage(6)">Let’s Cut the Cake →</button>
   </section>
 
-  <!-- PAGE 5 -->
-  <section id="page5" class="page">
+  <!-- PAGE 6 – 3D Cake -->
+  <section id="page6" class="page">
     <h2>🎂 Time to Blow the Candles & Cut the Cake</h2>
-    <div class="cake-container" id="cakeContainer">
-      <div class="cake-base"></div>
-      <div class="cake-layer"></div>
-      <div class="cake-icing"></div>
-      <div class="candle-row" id="candleRow">
-        <div class="candle">
-          <div class="flame"></div>
+
+    <div class="cake-scene">
+      <!-- 3D cake container (id used in JS) -->
+      <div class="cake-3d" id="cakeContainer">
+        <div class="cake-tier tier-bottom"></div>
+        <div class="cake-tier tier-middle"></div>
+        <div class="cake-tier tier-top"></div>
+
+        <div class="candle-row" id="candleRow">
+          <div class="candle">
+            <div class="flame"></div>
+          </div>
+          <div class="candle">
+            <div class="flame"></div>
+          </div>
+          <div class="candle">
+            <div class="flame"></div>
+          </div>
+          <div class="candle">
+            <div class="flame"></div>
+          </div>
         </div>
-        <div class="candle">
-          <div class="flame"></div>
-        </div>
-        <div class="candle">
-          <div class="flame"></div>
-        </div>
-        <div class="candle">
-          <div class="flame"></div>
-        </div>
+
+        <!-- vertical slice line when cut -->
+        <div class="cake-cut-line"></div>
       </div>
-      <div class="cake-cut-line"></div>
     </div>
 
     <div class="cake-buttons">
@@ -124,35 +150,28 @@
     </div>
 
     <div id="cakeMessage" class="celebration-text">
-      Happy Birthday Raffath Unnisa! 🌸🎉<br>
+      Happy Birthday Rafath Unnisa! 🌸🎉<br>
       Every slice of this cake carries my love for you 💗
     </div>
 
-    <button class="btn" id="nextFromCake" style="display:none;" onclick="goToPage(6)">Last Surprise →</button>
+    <button class="btn" id="nextFromCake" style="display:none;" onclick="goToPage(7)">Last Surprise →</button>
   </section>
 
-  <!-- PAGE 6 -->
-  <section id="page6" class="page">
+  <!-- PAGE 7 – Final Message -->
+  <section id="page7" class="page">
     <div class="final-bg"></div>
     <h2>Final Message 💌</h2>
     <p class="final-main">
       Have a nice day and enjoy your day.
     </p>
     <p class="final-sub">
-      You are special, Raffath Unnisa. Never forget that.
+      You are special, Rafath Unnisa. Never forget that.
     </p>
     <p class="signature">
       With all my love,
     </p>
     <button class="btn" onclick="goToPage(1); resetAll();">Replay Surprises 🔁</button>
   </section>
-
-  <!-- Optional: celebration sound -->
-  <!--
-  <audio id="celebrationSound">
-    <source src="celebration.mp3" type="audio/mpeg">
-  </audio>
-  -->
 
   <!-- Your JS file -->
   <script src="script.js"></script>
