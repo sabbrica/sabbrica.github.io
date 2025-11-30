@@ -9,10 +9,10 @@ body {
   background: radial-gradient(circle at top, #ffe0f0, #ffd1ff, #f5f7ff);
   color: #333;
   min-height: 100vh;
-  overflow-x: hidden;   /* prevent sideways scroll */
+  overflow-x: hidden;
 }
 
-/* Pages – now responsive with min-height */
+/* Pages – responsive with min-height */
 .page {
   display: none;
   min-height: 100vh;
@@ -20,8 +20,8 @@ body {
   padding: 20px;
   position: relative;
   overflow-x: hidden;
-  overflow-y: auto;      /* allow scroll on small screens */
-  justify-content: center;
+  overflow-y: auto;
+  justify-content: flex-start;   /* start from top on mobile */
   align-items: center;
   text-align: center;
   flex-direction: column;
@@ -32,6 +32,13 @@ body {
   display: flex;
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Large screens: center content vertically */
+@media (min-width: 768px) and (min-height: 700px) {
+  .page {
+    justify-content: center;
+  }
 }
 
 h1, h2, h3 {
@@ -132,6 +139,8 @@ h1, h2, h3 {
 
 #page2 {
   background: radial-gradient(circle at top, #ffe6ff, #f8e1ff, #dfe9f3);
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .gift-box {
@@ -237,7 +246,7 @@ h1, h2, h3 {
   100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
 }
 
-/* 🌸 Bouquet styles */
+/* 🌸 Bouquet */
 
 .bouquet {
   position: relative;
@@ -262,7 +271,6 @@ h1, h2, h3 {
   100% { transform: translateY(0) scale(1); }
 }
 
-/* cone wrap */
 .bouquet-wrap {
   position: absolute;
   bottom: 0;
@@ -275,7 +283,6 @@ h1, h2, h3 {
   box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
-/* stems */
 .bouquet-stem {
   position: absolute;
   bottom: 60px;
@@ -289,7 +296,6 @@ h1, h2, h3 {
 .bouquet-stem.stem2 { left: 50%; transform: translateX(-50%); }
 .bouquet-stem.stem3 { right: 30%; transform: rotate(8deg); }
 
-/* flowers */
 .bouquet-flower {
   position: absolute;
   width: 32px;
@@ -309,13 +315,8 @@ h1, h2, h3 {
   background: inherit;
 }
 
-.bouquet-flower::before {
-  top: -14px;
-}
-
-.bouquet-flower::after {
-  left: -14px;
-}
+.bouquet-flower::before { top: -14px; }
+.bouquet-flower::after { left: -14px; }
 
 .bouquet-flower.f1 { bottom: 110px; left: 15%; background: radial-gradient(circle at 30% 30%, #ffffff, #ff6b6b); }
 .bouquet-flower.f2 { bottom: 120px; left: 45%; background: radial-gradient(circle at 30% 30%, #ffffff, #ffde59); }
@@ -333,7 +334,7 @@ h1, h2, h3 {
   opacity: 1;
 }
 
-/* PAGE 3 – Simple Balloon Click Game */
+/* PAGE 3 – Balloon Game */
 
 #page3 {
   background: linear-gradient(135deg, #c9ffbf, #ffafbd);
@@ -400,9 +401,74 @@ h1, h2, h3 {
   animation: popIn 0.6s ease;
 }
 
-/* PAGE 4 – Blessings */
+/* PAGE 4 – Catch the Hearts */
 
 #page4 {
+  background: linear-gradient(135deg, #ffe6f7, #d4fc79);
+}
+
+#catchArea {
+  width: 95vw;
+  max-width: 600px;
+  height: 55vh;
+  max-height: 380px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.9);
+  margin: 10px auto 12px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+#basket {
+  position: absolute;
+  bottom: 10px;
+  width: 80px;
+  height: 25px;
+  border-radius: 20px 20px 10px 10px;
+  background: linear-gradient(135deg, #ff9a9e, #fecfef);
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.heart {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ff4b8b);
+  transform: rotate(45deg);
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ff4b8b);
+  border-radius: 50%;
+}
+
+.heart::before { top: -14px; left: 0; }
+.heart::after { left: -14px; top: 0; }
+
+.catch-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.small-btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+/* PAGE 5 – Blessings */
+
+#page5 {
   background: radial-gradient(circle at top, #020024, #090979, #00d4ff);
   color: white;
 }
@@ -437,55 +503,78 @@ h1, h2, h3 {
   }
 }
 
-/* PAGE 5 – Cake & Candles */
+/* PAGE 6 – 3D Cake & Candles */
 
-#page5 {
+#page6 {
   background: radial-gradient(circle at top, #fff1eb, #ace0f9);
 }
 
-.cake-container {
-  position: relative;
-  width: 280px;
-  height: 220px;
+.cake-scene {
+  perspective: 900px;
   margin-bottom: 20px;
 }
 
-.cake-base {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 120px;
-  background: linear-gradient(180deg, #ffb199, #ff0844);
-  border-radius: 40px 40px 20px 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+.cake-3d {
+  position: relative;
+  width: 260px;
+  height: 220px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+  transform: rotateX(22deg) rotateY(-18deg);
+  animation: cakeRotate 12s ease-in-out alternate infinite;
 }
 
-.cake-layer {
-  position: absolute;
-  bottom: 80px;
-  left: 10%;
-  width: 80%;
-  height: 60px;
-  background: linear-gradient(180deg, #ffe6e6, #ffb6c1);
-  border-radius: 30px 30px 20px 20px;
+@keyframes cakeRotate {
+  0%   { transform: rotateX(22deg) rotateY(-18deg); }
+  100% { transform: rotateX(26deg) rotateY(18deg); }
 }
 
-.cake-icing {
+.cake-tier {
   position: absolute;
-  bottom: 130px;
-  left: 15%;
-  width: 70%;
-  height: 25px;
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  box-shadow: 0 14px 25px rgba(0,0,0,0.25);
 }
+
+.tier-bottom {
+  width: 230px;
+  height: 80px;
+  background: radial-gradient(circle at 30% 15%, #ffe6f2, #ff8fa3);
+  bottom: 8px;
+}
+
+.tier-middle {
+  width: 180px;
+  height: 65px;
+  background: radial-gradient(circle at 30% 15%, #fff0f5, #ffb6c1);
+  bottom: 64px;
+}
+
+.tier-top {
+  width: 125px;
+  height: 55px;
+  background: radial-gradient(circle at 30% 15%, #ffffff, #ffd6e8);
+  bottom: 120px;
+}
+
+/* subtle side shading for 3D feel */
+.cake-tier::after {
+  content: "";
+  position: absolute;
+  inset: 50% 4% 0 4%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 0, rgba(0,0,0,0.15), rgba(0,0,0,0.3));
+  opacity: 0.5;
+}
+
+/* candles */
 
 .candle-row {
   position: absolute;
-  bottom: 160px;
+  bottom: 170px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateZ(10px);
   display: flex;
   gap: 10px;
 }
@@ -548,21 +637,23 @@ h1, h2, h3 {
   opacity: 0.7;
 }
 
+/* cut line */
+
 .cake-cut-line {
   position: absolute;
   width: 6px;
-  height: 140px;
-  background: rgba(255,255,255,0.8);
-  top: 60px;
+  height: 150px;
+  background: rgba(255,255,255,0.9);
+  top: 55px;
   left: 50%;
   transform: translateX(-50%) scaleY(0);
   transform-origin: top;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  box-shadow: 0 0 12px rgba(255,255,255,0.8);
   transition: transform 0.6s ease;
 }
 
-.cake-container.cut .cake-cut-line {
+.cake-3d.cut .cake-cut-line {
   transform: translateX(-50%) scaleY(1);
 }
 
@@ -615,6 +706,147 @@ h1, h2, h3 {
 
 @keyframes petalFall {
   0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) r
-otate(360deg); opacity: 0; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* PAGE 7 – Final Message */
+
+#page7 {
+  background: radial-gradient(circle at center, #ffecd2, #fcb69f, #ff9a9e);
+  color: #4a2742;
+}
+
+.final-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.5), transparent 60%),
+              radial-gradient(circle at 90% 80%, rgba(255,255,255,0.5), transparent 60%);
+  opacity: 0.6;
+  animation: pulseBg 6s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes pulseBg {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+
+.final-main {
+  font-size: 1.8rem;
+  max-width: 700px;
+  margin-bottom: 12px;
+}
+
+.final-sub {
+  font-size: 1.3rem;
+  margin-bottom: 30px;
+}
+
+.signature {
+  margin-top: 10px;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.floating-heart {
+  position: fixed;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ff4b8b);
+  transform: rotate(45deg);
+  animation: floatHeart 8s linear infinite;
+  opacity: 0.7;
+  z-index: 5;
+}
+
+.floating-heart::before,
+.floating-heart::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ff4b8b);
+  border-radius: 50%;
+}
+
+.floating-heart::before {
+  top: -9px;
+  left: 0;
+}
+
+.floating-heart::after {
+  left: -9px;
+  top: 0;
+}
+
+@keyframes floatHeart {
+  0%   { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+  20%  { opacity: 0.8; }
+  100% { transform: translateY(-110vh) rotate(45deg); opacity: 0; }
+}
+
+/* Utility */
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* ---------------- RESPONSIVE TWEAKS ---------------- */
+
+@media (max-width: 768px) {
+  .birthday-heading {
+    font-size: 2rem;
+  }
+  .final-main {
+    font-size: 1.5rem;
+  }
+  .final-sub {
+    font-size: 1.1rem;
+  }
+  #gameArea,
+  #catchArea {
+    height: 50vh;
+    max-height: 360px;
+  }
+  .cake-3d {
+    transform: scale(0.9) rotateX(22deg) rotateY(-18deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding-top: 70px;
+    padding-bottom: 80px;
+  }
+  .birthday-heading {
+    font-size: 1.6rem;
+  }
+  .birthday-sub {
+    font-size: 0.9rem;
+  }
+  h2 {
+    font-size: 1.3rem;
+  }
+  .btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+  #gameArea,
+  #catchArea {
+    height: 45vh;
+    max-height: 320px;
+  }
+  .cake-3d {
+    transform: scale(0.85) rotateX(22deg) rotateY(-18deg);
+  }
+  .final-main {
+    font-size: 1.3rem;
+  }
+  .final-sub {
+    font-size: 1rem;
+  }
 }
