@@ -6,14 +6,18 @@ function goToPage(n) {
   if (page) page.classList.add('active');
   currentPage = n;
 
-  // start/stop game based on page
+  // Game 1
   if (n === 3) startGame();
   else stopGame();
 
-  // hearts + fireworks for last page
-  if (n === 6) {
+  // Game 2
+  if (n === 4) startCatchGame();
+  else stopCatchGame();
+
+  // Final page – hearts + fireworks
+  if (n === 7) {
     createFloatingHearts();
-    createFireworks(30);   // extra fireworks on final message
+    createFireworks(30);
   }
 }
 
@@ -62,15 +66,9 @@ function openGift() {
     giftMsg.classList.add('show');
     nextBtn.style.display = 'inline-block';
 
-    // 🌸 show bouquet + text
-    if (bouquet) {
-      bouquet.classList.add('show');
-    }
-    if (bouquetText) {
-      bouquetText.classList.add('show');
-    }
+    if (bouquet) bouquet.classList.add('show');
+    if (bouquetText) bouquetText.classList.add('show');
 
-    // 🎆 More fireworks + decorations for mystery gift
     createFireworks(30);
     setTimeout(() => createFireworks(30), 500);
     setTimeout(() => createFireworks(30), 1000);
@@ -104,7 +102,7 @@ function createGiftDecorations(count = 20) {
   }
 }
 
-// ---------------- PAGE 3 – Simple Balloon Game ----------------
+// ---------------- PAGE 3 – Balloon Game ----------------
 
 let score = 0;
 let gameInterval = null;
@@ -144,7 +142,6 @@ function createGameBalloon() {
   const letters = ['L', 'O', 'V', 'E', '❤', 'H', 'B'];
   balloon.textContent = letters[Math.floor(Math.random() * letters.length)];
 
-  // 🎨 Multi-colored, visible balloons
   const colors = [
     'radial-gradient(circle at 20% 20%, #ffffff, #ff6b6b)',
     'radial-gradient(circle at 20% 20%, #ffffff, #6bc5ff)',
@@ -171,7 +168,6 @@ function createGameBalloon() {
 
   gameArea.appendChild(balloon);
 
-  // ⏱ Remove sooner so they don't stay too long
   setTimeout(() => balloon.remove(), 4000);
 }
 
@@ -181,14 +177,129 @@ function gameWin() {
   winMessage.classList.add('show');
   nextBtn.style.display = 'inline-block';
 
-  // extra fireworks on winning game
   createFireworks(25);
   setTimeout(() => createFireworks(25), 500);
 
   stopGame();
 }
 
-// ---------------- PAGE 5 – Cake Actions ----------------
+// ---------------- PAGE 4 – Catch the Hearts Game ----------------
+
+let heartsScore = 0;
+let heartsInterval = null;
+const heartsTarget = 8;
+let basketX = 50; // percentage
+
+function startCatchGame() {
+  const catchArea = document.getElementById('catchArea');
+  const winMsg = document.getElementById('catchWinMessage');
+  const nextBtn = document.getElementById('nextFromCatch');
+
+  heartsScore = 0;
+  document.getElementById('heartsScore').textContent = heartsScore;
+  winMsg.classList.remove('show');
+  nextBtn.style.display = 'none';
+
+  // remove old hearts
+  catchArea.querySelectorAll('.heart').forEach(h => h.remove());
+
+  // reset basket position
+  basketX = 50;
+  const basket = document.getElementById('basket');
+  basket.style.left = basketX + '%';
+  basket.style.transform = 'translateX(-50%)';
+
+  if (heartsInterval) clearInterval(heartsInterval);
+
+  heartsInterval = setInterval(() => {
+    if (heartsScore >= heartsTarget) return;
+    createHeart();
+  }, 900);
+}
+
+function stopCatchGame() {
+  if (heartsInterval) {
+    clearInterval(heartsInterval);
+    heartsInterval = null;
+  }
+  const catchArea = document.getElementById('catchArea');
+  if (catchArea) {
+    catchArea.querySelectorAll('.heart').forEach(h => h.remove());
+  }
+}
+
+function createHeart() {
+  const catchArea = document.getElementById('catchArea');
+  const areaRect = catchArea.getBoundingClientRect();
+
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+
+  const x = Math.random() * (areaRect.width - 30);
+  heart.style.left = x + 'px';
+  heart.style.top = '-40px';
+
+  catchArea.appendChild(heart);
+
+  let pos = -40;
+  const fallSpeed = 5 + Math.random() * 3;
+
+  const fall = setInterval(() => {
+    pos += fallSpeed;
+    heart.style.top = pos + 'px';
+
+    const heartRect = heart.getBoundingClientRect();
+    const basket = document.getElementById('basket');
+    const basketRect = basket.getBoundingClientRect();
+
+    const overlapHorizontally =
+      heartRect.right > basketRect.left && heartRect.left < basketRect.right;
+    const overlapVertically =
+      heartRect.bottom > basketRect.top && heartRect.bottom < basketRect.bottom + 20;
+
+    if (overlapHorizontally && overlapVertically) {
+      clearInterval(fall);
+      heart.remove();
+      heartsScore++;
+      document.getElementById('heartsScore').textContent = heartsScore;
+
+      if (heartsScore >= heartsTarget) {
+        catchWin();
+      }
+    }
+
+    if (pos > areaRect.height + 50) {
+      clearInterval(fall);
+      heart.remove();
+    }
+  }, 40);
+}
+
+function moveBasket(direction) {
+  // direction -1 = left, 1 = right
+  const step = 6; // percentage
+  basketX += direction * step;
+  if (basketX < 5) basketX = 5;
+  if (basketX > 95) basketX = 95;
+
+  const basket = document.getElementById('basket');
+  basket.style.left = basketX + '%';
+  basket.style.transform = 'translateX(-50%)';
+}
+
+function catchWin() {
+  const winMsg = document.getElementById('catchWinMessage');
+  const nextBtn = document.getElementById('nextFromCatch');
+  winMsg.classList.add('show');
+  nextBtn.style.display = 'inline-block';
+
+  createFireworks(25);
+  setTimeout(() => createFireworks(25), 600);
+
+  stopCatchGame();
+}
+
+// ---------------- PAGE 6 – Cake Actions ----------------
 
 let candlesBlown = false;
 let cakeCut = false;
@@ -200,7 +311,6 @@ function blowCandles() {
   const candleRow = document.getElementById('candleRow');
   candleRow.classList.add('candles-blown');
 
-  // create smoke for each candle
   candleRow.querySelectorAll('.candle').forEach(candle => {
     const smoke = document.createElement('div');
     smoke.className = 'smoke';
@@ -221,16 +331,12 @@ function cutCake() {
   msg.classList.add('show');
   nextBtn.style.display = 'inline-block';
 
-  // 🎆 Extra fireworks + decorations on cake cutting
   createFireworks(30);
   setTimeout(() => createFireworks(30), 600);
   setTimeout(() => createFireworks(30), 1200);
 
   createConfetti(90);
   createPetals(40);
-
-  // const sound = document.getElementById('celebrationSound');
-  // if (sound) sound.play();
 }
 
 function createConfetti(count = 40) {
@@ -256,10 +362,9 @@ function createPetals(count = 30) {
   }
 }
 
-// ---------------- PAGE 6 – Floating Hearts ----------------
+// ---------------- PAGE 7 – Floating Hearts ----------------
 
 function createFloatingHearts() {
-  // create a few hearts every time you land on page 6
   for (let i = 0; i < 10; i++) {
     const h = document.createElement('div');
     h.className = 'floating-heart';
@@ -273,7 +378,7 @@ function createFloatingHearts() {
 // ---------------- RESET EVERYTHING ON REPLAY ----------------
 
 function resetAll() {
-  // reset gift
+  // Gift
   giftOpened = false;
   const giftBox = document.getElementById('giftBox');
   const giftMsg = document.getElementById('giftMessage');
@@ -284,18 +389,26 @@ function resetAll() {
   giftBox.classList.remove('glowing');
   giftMsg.classList.remove('show');
   nextGift.style.display = 'none';
-
   if (bouquet) bouquet.classList.remove('show');
   if (bouquetText) bouquetText.classList.remove('show');
 
-  // reset game
+  // Game 1
   stopGame();
   document.getElementById('score').textContent = '0';
   document.getElementById('gameArea').innerHTML = '';
   document.getElementById('winMessage').classList.remove('show');
   document.getElementById('nextFromGame').style.display = 'none';
 
-  // reset cake
+  // Game 2
+  stopCatchGame();
+  heartsScore = 0;
+  const catchArea = document.getElementById('catchArea');
+  if (catchArea) catchArea.innerHTML = '<div id="basket"></div>';
+  document.getElementById('heartsScore').textContent = '0';
+  document.getElementById('catchWinMessage').classList.remove('show');
+  document.getElementById('nextFromCatch').style.display = 'none';
+
+  // Cake
   candlesBlown = false;
   cakeCut = false;
   const candleRow = document.getElementById('candleRow');
